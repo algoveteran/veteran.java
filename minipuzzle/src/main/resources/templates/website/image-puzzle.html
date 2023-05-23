@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head">
+</head>
+
+<link th:href="@{/css/image-puzzle.css}" rel="stylesheet" />
+<!--	<script src="/js/jquery-2.1.1.min.js"></script>-->
+<script src="https://use.fontawesome.com/c0c323679c.js"></script>
+
+<body >
+
+<nav th:replace="fragments/header::nav"></nav>
+
+<div id="collage">
+  <div id="playPanel" style="padding:5px;display:none;">
+
+    <div style="display:inline-block; margin:auto; width:95%; vertical-align:top;">
+      <ul id="sortable" class="sortable"></ul>
+
+      <div id="actualImageBox">
+        <div id="mission-panel">
+          <div id="stepBox">
+            <div>Steps:</div><div class="stepCount">0</div>
+          </div>
+          <h3 id="pass">You have to pass 6 times more.</h3>
+          <img id="actualImage" />
+          <div>Re-arrange to create a picture like this.</div>
+          <p id="levelPanel">
+            <button id="restart" type="button" class="btn btn-primary">Restart</button>
+            <button id="change-picture" type="button" class="btn btn-primary">Change Picture</button>
+            <!--					<input type="radio" name="level" id="hard" checked="checked" value="3" /> <label for="hard">Puzzle Picture</label>-->
+          </p>
+        </div>
+
+        <div id="gameOver" style="display:none;">
+          <div style=" padding: 5px 10px 20px 10px; text-align: center; ">
+            <h2 style="text-align:center">Congratulations!</h2>
+            <br /> You have completed this picture
+            <br />
+            in <span class="stepCount">0</span> steps.
+            <br /><br />
+          </div>
+
+          <button id="send-score" type="button" class="btn btn-primary">Send Score</button>
+        </div>
+
+      </div>
+
+    </div>
+    <div style=" background: #000; color:#eee; padding:10px; text-align:center;"><h1><time>00:00:00</time></h1>©AjayRandhawa(2017)</div>
+  </div>
+</div>
+
+<!-- The Modal -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 id="m-title" class="modal-title"></h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div id="m-content" class="modal-body">
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- Footer -->
+<footer th:replace="fragments/footer::footer"></footer>
+
+<div th:replace="fragments/jsScripts::scripts"></div>
+
+<script th:src="@{/js/jquery-ui.js}"></script>
+<script th:src="@{/js/image-puzzle.js}"></script>
+<script th:inline="javascript">
+
+		$(function () {
+			var images = [
+				{ src: 'images/london-bridge.jpg' },
+				{ src: 'images/lotus-temple.jpg' },
+				{ src: 'images/qutub-minar.jpg'},
+				{ src: 'images/statue-of-liberty.jpg' },
+				{ src: 'images/taj-mahal.jpg' }
+			];
+
+			var t, gridSize=3;
+			var h1 = $('h1')[0],
+			seconds = 0, minutes = 0, hours = 0;
+			imagePuzzle.startGame(images, gridSize);
+			imagePuzzle.endGame = function() {
+				clearTimeout(t);
+			}
+
+			function showModal(title, content) {
+				$("#m-title").text(title);
+				$("#m-content").html(content);
+				$("#myModal").modal();
+			}
+
+			$("#send-score").click(function() {
+				if ([[${#authorization.expression('isAuthenticated()')}]]) {
+					let score = seconds + minutes * 60 + hours * 3600;
+					$.get("/send-score?score=" + score, function(res) {
+						if (res) {
+							showModal("Congratulation!", "Your score is saved to leaderboard.");
+						}
+					});
+				} else {
+					showModal("Alert", "To send score, you must be logged in.");
+				}
+			});
+
+			$("#restart").click(function() {
+				clearTime();
+				timer();
+				imagePuzzle.startGame(images, gridSize);
+			});
+
+			$("#change-picture").click(function() {
+				imagePuzzle.startGame(images, gridSize);
+			});
+
+			function add() {
+				seconds++;
+				if (seconds >= 60) {
+					seconds = 0;
+					minutes++;
+					if (minutes >= 60) {
+						minutes = 0;
+						hours++;
+					}
+				}
+
+				h1.textContent = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
+				timer();
+			}
+
+			function timer() {
+				t = setTimeout(add, 1000);
+			}
+
+			function clearTime() {
+				clearTimeout(t);
+				hours = minutes = seconds = 0;
+			}
+
+			timer();
+		});
+
+</script>
+
+</body>
+</html>

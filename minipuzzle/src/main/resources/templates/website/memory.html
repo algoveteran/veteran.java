@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head">
+</head>
+
+<link th:href="@{/css/memory-game.css}" rel="stylesheet" />
+<!--	<script src="/js/jquery-2.1.1.min.js"></script>-->
+<script src="https://use.fontawesome.com/c0c323679c.js"></script>
+
+<body >
+
+<nav th:replace="fragments/header::nav"></nav>
+<div class="game">
+  <div class="controls">
+    <button>Start</button>
+    <div class="stats">
+      <div class="moves">0 moves</div>
+      <div class="timer">time: 0 sec</div>
+    </div>
+  </div>
+  <div class="board-container">
+    <div class="board" data-dimension="4"></div>
+    <div class="win">You won!</div>
+  </div>
+</div>
+
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 id="m-title" class="modal-title"></h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div id="m-content" class="modal-body">
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- Footer -->
+<footer th:replace="fragments/footer::footer"></footer>
+
+<div th:replace="fragments/jsScripts::scripts"></div>
+
+<script th:src="@{/js/jquery-ui.js}"></script>
+<script th:src="@{/js/memorygame.js}"></script>
+
+<script>
+
+function showModal(title, content) {
+    $("#m-title").text(title);
+    $("#m-content").html(content);
+    $("#myModal").modal();
+}
+$(document).on("click", "#send-score", function() {
+    if ([[${#authorization.expression('isAuthenticated()')}]]) {
+        $.get("/send-score?score=" + state.totalTime, function(res) {
+            if (res) {
+                showModal("Congratulation!", "Your score is saved to leaderboard.");
+            }
+        });
+    } else {
+        showModal("Alert", "To send score, you must be logged in.");
+    }
+});
+</script>
+
+</body>
+</html>

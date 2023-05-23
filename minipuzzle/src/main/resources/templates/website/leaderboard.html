@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head">
+</head>
+<!--	<script src="/js/jquery-2.1.1.min.js"></script>-->
+<script src="https://use.fontawesome.com/c0c323679c.js"></script>
+
+<body >
+<nav th:replace="fragments/header::nav"></nav>
+    <h2 th:text="${user.username}"></h2>
+    <h2 th:text="${'You passed in ' + user.score} + 's'"></h2>
+
+<!-- Footer -->
+<footer th:replace="fragments/footer::footer"></footer>
+
+<div th:replace="fragments/jsScripts::scripts"></div>
+
+</body>
+</html>

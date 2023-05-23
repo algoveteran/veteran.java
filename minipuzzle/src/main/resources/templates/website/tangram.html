@@ -1,0 +1,203 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head">
+</head>
+<head>
+  <meta charset=utf-8>
+  <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+  <title>Play Tangrams</title>
+  <link rel=canonical href=https://freegames.org/tangrams/>
+  <meta name=description content="Improve your spatial comprehension by solving these tangram puzzles.">
+  <meta property="og:title" content="Play Tangrams | 100% Free Online Game | FreeGames.org">
+  <meta property="og:type" content="game">
+  <meta property="og:url" content="https://freegames.org/tangrams/">
+  <meta property="og:description" content="Improve your spatial comprehension by solving these tangram puzzles.">
+  <meta property="og:site_name" content="FreeGames.org">
+  <meta property="og:image" content="https://freegames.org/images/tangrams.png">
+  <meta property="fb:app_id" content="122566137795765">
+  <link rel=manifest href=https://freegames.org/manifest.manifest>
+  <link href=https://freegames.org/tangrams/ hreflang=en-us rel=alternate>
+  <link href=https://freegames.org/tangrams/ hreflang=x-default rel=alternate>
+  <link href=https://freegames.org/gb/tangrams/ hreflang=en-gb rel=alternate>
+  <link href=https://freegames.org/ca/tangrams/ hreflang=en-ca rel=alternate>
+  <link href=https://freegames.org/au/tangrams/ hreflang=en-au rel=alternate>
+  <link href=https://freegames.org/nz/tangrams/ hreflang=en-nz rel=alternate>
+  <link rel=stylesheet href="@{/css/tangram.css}">
+  <style>
+    #powerblocks-container {
+      background-color: white!important;
+    }
+  </style>
+</head>
+<body>
+
+<nav th:replace="fragments/header::nav"></nav>
+<div id=outerWrap>
+  <div id=leftbar>
+    <a href=/ class="side-nav-btn btn">&#9664;</a>
+    <a href=# onclick=ToggleInfo() class="side-nav-btn btn" style=cursor:help>?</a>
+    <span onclick=ToggleFullscreen(event) class="side-nav-btn btn" style=cursor:ne-resize>&#9974;</span>
+  </div>
+  <div class=wrapper>
+    <div id=header-as></div>
+    <div id=content>
+      <div id=bigleftbar class=bigsidebar></div>
+      <div id=info>
+        <h1 style="text-align:center;">Tangrams</h1>
+      </div>
+      <div id=game>
+        <object id=gameobject tabindex=0 data=https://freegames.org/games/tangrams/v1 width=100% height="500px">
+          <embed id=gameembed src=https://freegames.org/games/tangrams/v1/ width=100% height=100%></embed>
+          Error: Embedded data could not be displayed.
+        </object>
+      </div>
+      <div id=bigrightbar class=bigsidebar></div>
+    </div>
+  </div>
+</div>
+<div style=color:#fff;padding-top:4px;font-size:18px;display:flex;width:100%;justify-content:center>&#8595;Drag here to recenter &#8595;</div>
+<!-- Footer -->
+<footer th:replace="fragments/footer::footer"></footer>
+
+<div th:replace="fragments/jsScripts::scripts"></div>
+
+<script th:src="@{/js/jquery-ui.js}"></script>
+<script>
+            var sha = '<div><div class="ympb_target" data-type="desktop-medrec-template" data-subtype="320x50" style="text-align:center; overflow: hidden;"></div> <div class="ympb_target" data-type="mobile-leaderboard-template" data-subtype="320x50,300x50" style="text-align:center;"></div></div>', bha = '<div><div class="ympb_target " data-type="desktop-leaderboard-template" data-subtype="728x90"></div></div>', mra = '<div class="ympb_target" data-type="desktop-medrec-template" data-subtype="300x250"></div><div class="ympb_target" data-type="mobile-leaderboard-template" data-subtype="320x50,320x100,300x50,300x100,300x250" style="text-align:center;"></div>', mra2 = '<div class="ympb_target" data-type="desktop-medrec-template" data-subtype="300x250"></div><div class="ympb_target" data-type="mobile-leaderboard-template" data-subtype="320x50,320x100,300x50,300x100,300x250" style="text-align:center;"></div>', bra = '<div class="ympb_target" data-type="desktop-medrec-template" data-subtype="300x250,336x280"></div><div class="ympb_target" data-type="mobile-leaderboard-template" data-subtype="320x50,320x100,300x50,300x100,300x250"></div>', supera = '<div class="ympb_target" data-type="desktop-medrec-template" data-subtype="300x250,336x280,300x600"></div>', vState = "", fState = "", ar = .5714285714285714, BLB = "", BRB = "", iOS;
+            function ClearAds() {
+                var b, a, c, d;
+                for (fState = "",
+                b = document.getElementsByClassName('ympb_target'); a = b[0]; )
+                    a.parentNode.removeChild(a);
+                c = "",
+                d = ""
+            }
+            function Resize() {
+                var a, b;
+                window.innerHeight < 400 ? vState != "land-phone" && (vState = "land-phone",
+                ClearAds(),
+                document.getElementById('leftbar').style.display = "flex",
+                document.getElementById('bigrightbar').style.display = "none",
+                document.getElementById('bigleftbar').style.display = "none",
+                document.getElementById('header-as').style.display = "none",
+                document.getElementById('footer').style.display = "none",
+                document.getElementById('footer-as').style.display = "none",
+                window.innerHeight >= 320 || (document.getElementById('rightbar').style.display = "none")) : window.innerWidth < 650 ? vState != "port-phone" && (vState = "port-phone",
+                ClearAds(),
+                document.getElementById('leftbar').style.display = "none",
+                document.getElementById('rightbar').style.display = "none",
+                document.getElementById('bigrightbar').style.display = "none",
+                document.getElementById('bigleftbar').style.display = "none",
+                document.getElementById('footer').style.display = "flex",
+                document.getElementById('footer').style.height = "40px",
+                document.getElementById('footer-as').style.display = "none",
+                document.getElementById('header-as').style.display = "flex",
+                document.getElementById('header-as').innerHTML = sha) : (a = document.getElementById('content').offsetWidth / ar,
+                b = (document.getElementById('content').offsetWidth - 346) / ar,
+                a > document.getElementById('content').offsetHeight && (a = document.getElementById('content').offsetHeight),
+                b > document.getElementById('content').offsetHeight && (b = document.getElementById('content').offsetHeight),
+                aW = document.getElementById('content').offsetHeight * ar,
+                document.getElementById('content').offsetWidth - aW > 692 ? (vState != "desktop-lr-col" && (vState != "desktop-r-col" && ClearAds(),
+                vState = "desktop-lr-col",
+                document.getElementById('bigrightbar').style.display = "flex",
+                document.getElementById('leftbar').style.display = "none",
+                document.getElementById('rightbar').style.display = "none",
+                document.getElementById('header-as').style.display = "none",
+                document.getElementById('footer').style.display = "flex",
+                document.getElementById('footer').style.height = "60px",
+                document.getElementById('bigleftbar').style.display = "flex",
+                document.getElementById('footer-as').style.display = "none"),
+                window.innerHeight > 660 ? (BLB !== "supera" && (BLB = "supera"),
+                BRB !== "supera" && (document.getElementById('bigrightbar').innerHTML = supera,
+                BRB = "supera")) : (BLB !== "bra" && (BLB = "bra"),
+                BRB !== "bra" && (document.getElementById('bigrightbar').innerHTML = mra,
+                BRB = "bra"))) : document.getElementById('content').offsetWidth / document.getElementById('content').offsetHeight > .9 && b / a > .7 && screen.width > 1200 ? (vState != "desktop-r-col" && (BLB = "",
+                document.getElementById('bigleftbar').innerHTML = "",
+                vState != "desktop-lr-col" && ClearAds(),
+                vState = "desktop-r-col",
+                document.getElementById('bigrightbar').style.display = "flex",
+                document.getElementById('leftbar').style.display = "none",
+                document.getElementById('rightbar').style.display = "none",
+                document.getElementById('header-as').style.display = "none",
+                document.getElementById('footer').style.height = "60px",
+                document.getElementById('footer').style.display = "flex",
+                document.getElementById('bigleftbar').style.display = "none",
+                document.getElementById('footer').style.height = "90px",
+                document.getElementById('footer-as').style.display = "flex",
+                document.getElementById('footer-as').innerHTML = bha),
+                window.innerHeight > 680 ? BRB !== "supera" && (document.getElementById('bigrightbar').innerHTML = supera,
+                BRB = "supera") : BRB !== "bra" && (document.getElementById('bigrightbar').innerHTML = mra,
+                BRB = "bra"),
+                window.innerWidth > 1100 ? fState != "big-ad" && (fState = "big-ad",
+                document.getElementById('footer').style.height = "90px",
+                document.getElementById('footer-as').style.display = "flex",
+                document.getElementById('footer-as').style.width = "728px",
+                document.getElementById('footer-as').style.height = "90px",
+                document.getElementById('footer-as').innerHTML = bha) : window.innerWidth > 700 ? fState != "small-ad" && (fState = "small-ad",
+                document.getElementById('footer').style.height = "60px",
+                document.getElementById('footer-as').style.display = "flex",
+                document.getElementById('footer-as').style.width = "320px",
+                document.getElementById('footer-as').style.height = "60px",
+                document.getElementById('footer-as').innerHTML = sha) : fState != "no-ad" && (fState = "no-ad",
+                document.getElementById('footer').style.height = "60px",
+                document.getElementById('footer-as').style.display = "none",
+                document.getElementById('footer-as').innerHTML = "")) : (fState = "",
+                vState != "desktop" && (ClearAds(),
+                vState = "desktop",
+                document.getElementById('leftbar').style.display = "none",
+                document.getElementById('rightbar').style.display = "none",
+                document.getElementById('header-as').style.display = "none",
+                document.getElementById('footer').style.display = "flex",
+                document.getElementById('footer').style.height = "60px",
+                document.getElementById('bigrightbar').style.display = "none",
+                document.getElementById('bigleftbar').style.display = "none",
+                document.getElementById('footer-as').style.display = "flex",
+                document.getElementById('footer-as').style.width = "320px",
+                document.getElementById('footer-as').style.height = "60px",
+                document.getElementById('footer-as').innerHTML = sha)))
+            }
+            window.addEventListener('resize', Resize),
+            Resize();
+            function ToggleFullscreen(a) {
+                a.shiftKey ? elem = document.getElementById('gameobject') : elem = document.documentElement,
+                !document.fullscreenElement && !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement ? elem.requestFullscreen ? elem.requestFullscreen() : elem.msRequestFullscreen ? elem.msRequestFullscreen() : elem.mozRequestFullScreen ? elem.mozRequestFullScreen() : elem.webkitRequestFullscreen && elem.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT) : document.exitFullscreen ? document.exitFullscreen() : document.msExitFullscreen ? document.msExitFullscreen() : document.mozCancelFullScreen ? document.mozCancelFullScreen() : document.webkitExitFullscreen && document.webkitExitFullscreen(),
+                document.getElementById('gameobject').contentWindow.focus(),
+                Resize()
+            }
+            function ToggleInfo() {
+                document.getElementById('info').style.display === "block" ? (document.getElementById('info').style.display = "none",
+                document.getElementById('game').style.display = "block") : (document.getElementById('info').style.display = "block",
+                document.getElementById('game').style.display = "none"),
+                document.getElementById('gameobject').contentWindow.focus()
+            }
+            document.getElementById('info').addEventListener('click', ToggleInfo),
+            document.getElementById('gameobject').contentWindow.focus(),
+            iOS = navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform),
+            iOS && (document.getElementById('fullscreen-btn').style.display = "none");
+            function YollaLoaded() {}
+        </script>
+<script async>
+            !function(a, e, f, g, b, c, d) {
+                a.GoogleAnalyticsObject = b,
+                a[b] = a[b] || function() {
+                    (a[b].q = a[b].q || []).push(arguments)
+                }
+                ,
+                a[b].l = 1 * new Date,
+                c = e.createElement(f),
+                d = e.getElementsByTagName(f)[0],
+                c.async = 1,
+                c.src = g,
+                d.parentNode.insertBefore(c, d)
+            }(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga'),
+            ga('create', 'UA-3040574-4', 'auto'),
+            ga('send', 'pageview');
+            var pageTime = 0;
+            ga('send', 'event', 'viewState', 'View State', vState + "-" + fState + "-" + BRB),
+            setInterval(function() {
+                pageTime += .5,
+                ga('send', 'event', 'viewState', 'View State', vState + "-" + fState + "-" + BRB)
+            }, 3e4)
+        </script>
+<script defer type=text/javascript src=https://portal.cdn.yollamedia.com/storage/tag/psbcaf37dbd19d33688a3ec0838e79aeaebe518369.js onload=YollaLoaded()></script>
+</body>
+</html>
